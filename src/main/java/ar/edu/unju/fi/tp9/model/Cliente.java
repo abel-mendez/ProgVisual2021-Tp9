@@ -16,6 +16,9 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
+import javax.persistence.JoinTable;
+import javax.persistence.ManyToMany;
+import javax.persistence.ManyToOne;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
 import javax.validation.constraints.Email;
@@ -85,6 +88,10 @@ public class Cliente {
 	@JoinColumn(name="cue_Id")
 	private Cuenta cuenta;
 	
+	@ManyToMany
+	@JoinTable(name="clientes_beneficios",
+				joinColumns = @JoinColumn(name="cli_id"),
+				inverseJoinColumns = @JoinColumn(name="ben_id"))
 	private List<Beneficio> beneficios=new ArrayList<Beneficio>();
 	
 	

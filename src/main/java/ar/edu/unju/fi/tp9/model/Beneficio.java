@@ -8,6 +8,7 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.ManyToMany;
 import javax.persistence.Table;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.Size;
@@ -27,7 +28,7 @@ public class Beneficio {
 	@NotBlank(message = "Esta Campo no puede estar vacio")
 	@Column(name="ben_descripcion")
 	private String descripcion;
-	
+	@ManyToMany(mappedBy = "beneficios")
 	private List<Cliente> clientes=new ArrayList<Cliente>();
 	
 	/**
