@@ -5,6 +5,8 @@ import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.Period;
 import java.time.temporal.ChronoUnit;
+import java.util.ArrayList;
+import java.util.List;
 
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
@@ -82,6 +84,8 @@ public class Cliente {
 	@OneToOne(cascade = CascadeType.ALL)
 	@JoinColumn(name="cue_Id")
 	private Cuenta cuenta;
+	
+	private List<Beneficio> beneficios=new ArrayList<Beneficio>();
 	
 	
 	public Cliente() {
