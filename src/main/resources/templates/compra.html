@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<title>Nueva Compra</title>
+<meta name="viewport" content="user-scalable=no, width=device-width. initial-scale=1">
+<link rel="stylesheet" th:href="@{/webjars/bootstrap/4.6.0-1/css/bootstrap.min.css}">
+<link rel="stylesheet" th:href="@{/css/style.css}">
+</head>
+<body>
+<header th:replace="/layout/header :: header"></header>
+
+<div class="container">
+	 <div class="row p-0 m-0">
+		<section class="col-md-12 col-sm-12 col-lg-10 ">
+		    <div style="height:30px"></div>
+			
+			<div class="container">
+				<div class="row">
+				   <div class="col-lg-12">
+				     <div class="card shadows-lg p-3 mb-5 bg-white">
+				        <div class="card-header bg-danger text-white text-center">FORMULARIO-COMPRA</div>
+				        <div class="card-body">
+				        	<form th:action="@{/compra/guardar}" th:object="${compra}" method="get">
+							   <div class="form-group">
+							    <label for="id">ID </label>
+								<input required th:field="*{id}" id="id" class="form-control" type="number" name="id" placeholder="Ingrese ID"
+								>
+							   </div>
+							   <div class="form-group">
+							    <label for="codigo">Codigo</label>
+							   <select name="codigo" id="codigo" class="form-select" aria-label="Default select example">
+								  <option th:each="p: ${producto}" th:value="${p.codigo}" ><span th:text="${p.nombre}" ></span></option>
+								  
+								</select>
+								</div>
+							   <div class="form-group">
+							    <label for="cantidad">Cantidad</label>
+								<input required th:field="*{cantidad}" id="cantidad" class="form-control" type="number" name="cantidad" placeholder="Ingrese cantidad"
+								>
+								<div class="alert alert-danger" th:if="${#fields.hasErrors('cantidad')}" th:errors="*{cantidad}"></div>
+							   </div>
+							   
+							   <button class="btn btn-danger btn-block" type="submit" >Guardar</button>
+				        	</form>
+
+				        </div>
+				     </div>
+				   </div>
+				</div>		
+			</div>	
+		
+			
+		</section>
+		<aside th:replace="/layout/publicity :: publicity"></aside>
+	 </div>
+</div>
+<footer th:replace="/layout/footer :: footer"></footer>
+    
+    <script type="text/javascript" th:src=@{/webjars/jquery/3.5.1/jquery.min.js}></script>
+    <script type="text/javascript" th:src=@{/webjars/popper.js/1.16.1-lts/popper.min.js}></script>
+    <script type="text/javascript" th:src=@{/webjars/bootstrap/4.6.0-1/js/bootstrap.min.js}></script>
+</body>
+</html>

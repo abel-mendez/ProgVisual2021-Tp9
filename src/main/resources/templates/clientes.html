@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.Thymeleaf.org">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="user-scalable=no, width=device-width. initial-scale=1">
+<title>Lista de Clientes</title>
+<link rel="stylesheet" th:href="@{/webjars/bootstrap/4.6.0-1/css/bootstrap.min.css}">
+<link rel="stylesheet" th:href="@{/css/style.css}">
+</head>
+<body>
+
+		<header th:replace="/layout/header :: header"></header>
+		<div class="container">
+			<div class="row ">
+				<section class="col-md-12 col-sm-12 col-lg-10 ">
+					
+					 <div class="container bg-danger text-white p-3 mt-3 text-center">
+					    <h3>LISTADO DE CLIENTES</h3>
+					 </div>
+					 <div class="table-responsive">
+						<table class="table bg-white" border="1" style="border-collapse: collapse; width:2000px; ">
+							<thead class="thead-light">
+								<tr>
+									<th>TIPO DE DOCUMENTO</th>
+									<th>NRO DE DOCUMENTO</th>
+									<th>APELLIDO Y NOMBRE</th>
+									<th>EMAIL</th>
+									<th>FECHA DE NACIMIENTO</th>
+									<th>EDAD</th>
+									<th>NRO DE TELEFONO</th>
+									<th>FECHA ULTIMA COMPRA</th>
+									<th>ADICIONALES</th>
+									<th>ACCIONES</th>
+								</tr>
+							</thead>
+							<tbody class="tbody-light">
+								<tr th:each="e: ${clientes}">
+									<td th:text="${e.tipoDocumento}"></td>
+									<td th:text="${e.nroDocumento}"></td>
+									<td th:text="${#strings.toUpperCase(e.nombreApellido)}"></td>
+									<td th:text="${e.email}"></td>
+									<td th:text="${#temporals.format(e.fechaNacimiento,'dd/MM/yyyy')}"></td>
+									<td th:text="${e.edad}+ ' años'"></td>
+									<td th:text="${e.codigoAreaTelefono} + '-' + ${e.nroTelefono}"></td>
+									<td th:text="${#temporals.format(e.fechaUltimaCompra,'dd/MM/yyyy')}"></td>
+ 									<td id="adicional"> 
+										<p><span th:text="'A) ' + ${e.getTiempoDesdeUltimaCompra()}"></span></p> 
+ 										<p><span th:text="'B) ' + ${e.getDiasDesdeMiNacimiento()}"></span></p>
+										<p><span th:text="'C) ' + ${e.getTiempoCumple()}"></span></p> 
+									</td> 
+									<td> 
+										<a th:href="@{/cliente/editar/}+${e.id}" class="btn btn-success">Editar</a>
+										<a th:href="@{/cliente/borrar/}+${e.id}" class="btn btn-danger">Borrar</a>
+									 </td>
+								</tr>
+							</tbody>
+						</table>
+					  </div>	 
+					<div>
+					   <a class="btn btn-danger" href="/cliente/nuevo">--INGRESAR CLIENTE NUEVO--</a>
+				    </div>	
+				</section>
+				<aside th:replace="/layout/publicity :: publicity"></aside>
+			</div>
+		</div>  
+		<footer th:replace="/layout/footer :: footer"></footer>    
+    <script type="text/javascript" th:src=@{/webjars/jquery/3.5.1/jquery.min.js}></script>
+    <script type="text/javascript" th:src=@{/webjars/popper.js/1.16.1-lts/popper.min.js}></script>
+    <script type="text/javascript" th:src=@{/webjars/bootstrap/4.6.0-1/js/bootstrap.min.js}></script>        
+        
+        
+</body>
+</html>

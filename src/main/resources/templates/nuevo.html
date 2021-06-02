@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.Thymeleaf.org">
+<head>
+<meta charset="UTF-8">
+<title>Nuevo Producto</title>
+<meta name="viewport" content="user-scalable=no, width=device-width. initial-scale=1">
+<link rel="stylesheet" th:href="@{/webjars/bootstrap/4.6.0-1/css/bootstrap.min.css}">
+<link rel="stylesheet" th:href="@{/css/style.css}">
+</head>
+<body>
+
+	<header th:replace="/layout/header :: header"></header>
+	<div class="container">
+	 <div class="row">
+		<section class="col-md-12 col-sm-12 col-lg-10 ">
+		    <div style="height:30px"></div>
+			<div class="container">
+				<div class="row">
+				   <div class="col-lg-12">
+				     <div class="card shadows-lg p-3 mb-5 bg-white">
+				        <div class="card-header bg-danger text-white text-center">FORMULARIO-PRODUCTO</div>
+				        <div class="card-body">
+				        	<form th:action="@{/producto/guardar}" th:object="${producto}" method="post">
+				        		<div class="form-group">
+							     <label for="codigo" class="font-italic">Codigo</label>
+								 <input required id="codigo" class="form-control" type="number" name="codigo" placeholder="Ingrese el codigo"
+								 th:field="*{codigo}">
+								 <div class="alert alert-danger" th:if="${#fields.hasErrors('codigo')}" th:errors="*{codigo}"></div>
+							    </div>
+							   <div class="form-group">
+							    <label for="nombre">Nombre</label>
+								<input required id="nombre" class="form-control" type="text" name="nombre" placeholder="Ingrese el nombre"
+								th:field="*{nombre}">
+								<div class="alert alert-danger" th:if="${#fields.hasErrors('nombre')}" th:errors="*{nombre}"></div>
+							   </div>
+							   <div class="form-group">
+							    <label for="precio">Precio</label>
+								<input required id="precio" step="0.01" class="form-control" type="number" name="precio" placeholder="Ingrese el precio"
+								th:field="*{precio}">
+								<div class="alert alert-danger" th:if="${#fields.hasErrors('precio')}" th:errors="*{precio}"></div>
+							   </div>
+							   <div class="form-group">
+							    <label for="marca">Marca</label>
+								<input required id="marca" class="form-control" type="text" name="marca" placeholder="Ingrese la marca"
+								th:field="*{marca}">
+								<div class="alert alert-danger" th:if="${#fields.hasErrors('marca')}" th:errors="*{marca}"></div>
+							   </div>
+							   <div class="form-group">
+							    <label for="stock">Stock</label>
+								<input required id="stock" class="form-control" type="number" name="stock" placeholder="Ingrese el stock"
+								th:field="*{stock}">
+								<div class="alert alert-danger" th:if="${#fields.hasErrors('stock')}" th:errors="*{stock}"></div>
+							   </div>
+							   
+							   <button class="btn btn-danger btn-block" type="submit" >Guardar</button>
+				        	</form>
+				        	<div class="container my-2 text-center">
+						    <a href="/producto/ultimo" class="btn btn-danger">Ver ultimo producto guardado</a>
+						    <a href="/producto/lista" class="btn btn-danger">Ver todos los producto</a>				        	
+				        	</div>
+				        </div>
+				     </div>
+				   </div>
+				</div>		
+			</div>	
+		
+		</section>
+	
+		<aside th:replace="/layout/publicity :: publicity"></aside>
+		
+	 </div>
+	</div>
+	<footer th:replace="/layout/footer :: footer"></footer>
+    
+    <script type="text/javascript" th:src=@{/webjars/jquery/3.5.1/jquery.min.js}></script>
+    <script type="text/javascript" th:src=@{/webjars/popper.js/1.16.1-lts/popper.min.js}></script>
+    <script type="text/javascript" th:src=@{/webjars/bootstrap/4.6.0-1/js/bootstrap.min.js}></script>
+</body>
+</html>

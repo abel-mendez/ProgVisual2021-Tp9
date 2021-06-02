@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.Thymeleaf.org">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="user-scalable=no, width=device-width. initial-scale=1">
+<title>Ultimo Producto</title>
+<link rel="stylesheet" th:href="@{/webjars/bootstrap/4.6.0-1/css/bootstrap.min.css}">
+<link rel="stylesheet" th:href="@{/css/style.css}">
+</head>
+<body>
+	<header th:replace="/layout/header :: header"></header>
+	<div class="container">
+	 <div class="row">
+		<section class="col-md-12 col-sm-12 col-lg-8 ">
+		    <div style="height:30px"></div>
+			<div class="container">
+				<div class="row">
+				   <div class="col-lg-12">
+				     <div class="card shadows-lg p-3 mb-5 bg-white">
+				        <div class="card-header bg-danger text-white text-center">ULTIMO PRODUCTO GUARDADO</div>
+				        <div class="card-body">
+							<form>
+							  <div class="form-group row">
+							    <label for="codigo" class="col-sm-2 col-form-label">Codigo</label>
+							    <div class="col-sm-10">
+								<span  class="form-control" id="codigo" th:text="${producto.codigo}"></span>
+							    </div>
+							  </div>
+							  <div class="form-group row">
+							    <label for="nombre" class="col-sm-2 col-form-label">Nombre</label>
+							    <div class="col-sm-10">
+								<span  class="form-control" id="nombre" th:text="${producto.nombre}"></span>
+							    </div>
+							  </div>
+							  <div class="form-group row">
+							    <label for="precio" class="col-sm-2 col-form-label">Precio</label>
+							    <div class="col-sm-10">
+								<span  class="form-control" id="precio" th:text="${producto.precio}"></span>
+							    </div>
+							  </div>
+							  <div class="form-group row">
+							    <label for="marca" class="col-sm-2 col-form-label">Marca</label>
+							    <div class="col-sm-10">
+								<span  class="form-control" id="marca" th:text="${producto.marca}"></span>
+							    </div>
+							  </div>
+							  <div class="form-group row">
+							    <label for="stock" class="col-sm-2 col-form-label">Stock</label>
+							    <div class="col-sm-10">
+								<span  class="form-control" id="stock" th:text="${producto.stock}"></span>
+							    </div>
+							  </div>
+							<a href="/producto" class="btn btn-danger">Volver al formulario</a>
+							</form>
+				        </div>
+				     </div>
+				   </div>
+				</div>		
+			</div>	
+		</section>
+		<aside th:replace="/layout/publicity :: publicity"></aside>
+	 </div>
+	</div>
+	<footer th:replace="/layout/footer :: footer"></footer>
+    
+    <script type="text/javascript" th:src=@{/webjars/jquery/3.5.1/jquery.min.js}></script>
+    <script type="text/javascript" th:src=@{/webjars/popper.js/1.16.1-lts/popper.min.js}></script>
+    <script type="text/javascript" th:src=@{/webjars/bootstrap/4.6.0-1/js/bootstrap.min.js}></script>
+</body>
+</html>

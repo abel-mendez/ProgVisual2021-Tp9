@@ -1,0 +1,126 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.Thymeleaf.org">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="user-scalable=no, width=device-width. initial-scale=1">
+<title>Nuevo Cliente</title>
+<link rel="stylesheet" th:href="@{/webjars/bootstrap/4.6.0-1/css/bootstrap.min.css}">
+<link rel="stylesheet" th:href="@{/css/style.css}">
+</head>
+<body>
+
+
+	<header th:replace="/layout/header :: header"></header>
+	<div class="container">
+	 <div class="row">
+		<section class="col-md-12 col-sm-12 col-lg-10 ">
+		    <div style="height:30px"></div>
+			<div class="container">
+				<div class="row">
+				   <div class="col-lg-12">
+				     <div class="card shadows-lg p-3 mb-5 bg-white">
+				        <div class="card-header bg-danger text-white text-center">FORMULARIO-CLIENTE</div>
+				        <div class="card-body">
+					         <form  th:action="@{/cliente/guardar}" th:object="${cliente}" method="post">
+					         <input type="hidden" th:field="*{id}"/>
+								<div class="form-group">
+								 	<label for="nombreApellido">Apellido y Nombre</label>
+									<input class="form-control" type="text" id="nombreApellido" placeholder="Ingrese el apellido y nombre"
+									th:field="*{nombreApellido}">
+									<div class=" alert alert-danger" th:if="${#fields.hasErrors('nombreApellido')}" th:errors="*{nombreApellido}" ></div>
+								</div>
+								<div class="form-group">
+								<label for="tipoDocumento">Tipo de Documento</label>
+									<select required class="form-control "id="tipoDocumento" th:field="*{tipoDocumento}">
+										<option value="" selected>Elija una opcion </option>
+										<option value="PASAPORTE"> PASAPORTE </option>
+										<option value="DNI"> DNI</option>
+									</select>
+								</div>
+								<div class="form-group">
+								<label for="nroDocumento">Numero de Dni</label>
+								<input required class="form-control" type="number" id="nroDocumento" placeholder="Ingrese el numero de dni"
+								th:field="*{nroDocumento}">
+								<div class=" alert alert-danger" th:if="${#fields.hasErrors('nroDocumento')}" th:errors="*{nroDocumento}" ></div>
+								</div>
+								<div class="form-group">
+							        <label for="email">Email</label>
+								<input required class="form-control" type="email" id="email" placeholder="Ingrese el email"
+								th:field="*{email}">
+								<div class=" alert alert-danger" th:if="${#fields.hasErrors('email')}" th:errors="*{email}" ></div>
+								</div>
+								<div class="form-group">
+								<label for="password">Contraseña</label>
+								<input class="form-control" type="password" id="password" placeholder="Ingrese password"
+								th:field="*{password}"/>
+								<div class=" alert alert-danger" th:if="${#fields.hasErrors('password')}" th:errors="*{password}" ></div>
+								</div>
+								<div class="form-group">
+								<label for="fechaNacimiento">Fecha de nacimiento</label>
+								<input required class="form-control" type="date" id="fechaNacimiento" th:field="*{fechaNacimiento}"/>
+								</div>
+								<div class="form-group">
+								<label for="codigoAreaTelefono">Codigo de Area</label>
+								<input required class="form-control" type="number" id="codigoAreaTelefono" placeholder="Ingrese el codigo de area"
+								th:field="*{codigoAreaTelefono}"/>
+								<div class=" alert alert-danger" th:if="${#fields.hasErrors('codigoAreaTelefono')}" th:errors="*{codigoAreaTelefono}" ></div>
+								</div>
+								<div class="form-group">
+								<label for="nroTelefono">Numero de telefono</label>
+								<input required class="form-control" type="number" id="nroTelefono" placeholder="Ingrese el numero de telefono"
+								th:field="*{nroTelefono}"/>
+								
+								<div class=" alert alert-danger" th:if="${#fields.hasErrors('nroTelefono')}" th:errors="*{nroTelefono}" ></div>
+								</div>
+								<div class="form-group">
+								<label for="fechaUltimaCompra">Fecha de ultima compra</label>
+								<input required class="form-control" type="date" id="fechaUltimaCompra" th:field="*{fechaUltimaCompra}"/>
+								</div>
+								<!-- CUENTA -->
+								<div class="card-header bg-danger text-white text-center">Datos de la Cuenta</div>
+								<input type="hidden" th:field="*{cuenta.id}"/>
+								<div class="form-group">
+							     	<label for="saldo" class="font-italic">Saldo</label>
+								 	<input required id="saldo" th:field="*{cuenta.saldo}" class="form-control" type="number" step="0.01" name="saldo" placeholder="Ingrese el Saldo"
+								 >
+								 <div class="alert alert-danger" th:if="${#fields.hasErrors('cuenta.saldo')}" th:errors="*{cuenta.saldo}"></div>
+							    </div>
+							    
+							   <div class="form-group">
+							    	<label for="fecha">Fecha de creacion</label>
+									<input required id="fecha" th:field="*{cuenta.fechaCreacion}" class="form-control" type="date" name="fecha">
+							   		<div class="alert alert-danger" th:if="${#fields.hasErrors('cuenta.fechaCreacion')}" th:errors="*{cuenta.fechaCreacion}"></div>
+							   </div>
+								<div class="form-group">
+									<label for="estado">Estado de la cuenta</label>
+									<select name="estado" required class="form-control "id="estado" th:field="*{cuenta.estado}">
+										<option value="activa" selected>Activa </option>
+										<option value="inactiva"> Inactiva</option>
+										
+									</select>
+									<div class="alert alert-danger" th:if="${#fields.hasErrors('cuenta.estado')}" th:errors="*{cuenta.estado}"></div>
+								</div>
+								
+								
+					            <button class="btn btn-danger btn-block" type="submit" >Guardar</button>
+						
+						</form>
+				        </div>
+				     </div>
+				   </div>
+				</div>		
+			</div>	
+		</section>
+	
+		<aside th:replace="/layout/publicity :: publicity"></aside>
+		
+	 </div>
+	</div>
+	<footer th:replace="/layout/footer :: footer"></footer>
+
+        
+    <script type="text/javascript" th:src=@{/webjars/jquery/3.5.1/jquery.min.js}></script>
+    <script type="text/javascript" th:src=@{/webjars/popper.js/1.16.1-lts/popper.min.js}></script>
+    <script type="text/javascript" th:src=@{/webjars/bootstrap/4.6.0-1/js/bootstrap.min.js}></script>
+</body>
+</html>

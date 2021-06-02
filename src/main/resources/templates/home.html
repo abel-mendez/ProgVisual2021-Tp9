@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.Thymeleaf.org">
+<head>
+<meta charset="UTF-8">
+<title>Home</title>
+<meta name="viewport" content="user-scalable=no, width=device-width. initial-scale=1">
+<link rel="stylesheet" th:href="@{/webjars/bootstrap/4.6.0-1/css/bootstrap.min.css}">
+<link rel="stylesheet" th:href="@{/css/style.css}">
+</head>
+<body>
+
+	<header th:replace="/layout/header :: header"></header>
+	<div class="container">
+	 <div class="row">
+		<section class="col-md-12 col-sm-12 col-lg-10 ">
+		    <div style="height:30px"></div>
+			<div class="container">
+				<div class="row">
+				   <div class="col-lg-12">
+				     <div class="card shadows-lg p-1 mb-4 bg-white">
+				        <div class="card-header bg-danger text-white text-center">NOTICIAS</div>
+				        <div class="card-body">
+                           
+                           <div class="container py-2" id="custom-cards">
+						     <h2 class="pb-2 border-bottom">Noticias UNJU</h2>
+							
+							<div class="card bg-dark text-white mb-5">
+							   <img th:src="@{/images/noti1.jpg}" class="card-img-top" alt="...">
+							  <div class="card-img-overlay">
+							    <h5 class="card-title bg-dark">JUJUY CIENTÍFICA: ANFIBIOS EN LAS YUNGAS JUJEÑAS</h5>
+							    <p class="card-text bg-dark">Nueva entrega del proyecto editorial de la Universidad Nacional de Jujuy.</p>
+							  </div>
+							</div>
+						   
+						   	<div class="card bg-dark text-white">
+							   <img th:src="@{/images/noti2.jpg}" class="card-img-top" alt="...">
+							  <div class="card-img-overlay">
+							    <h5 class="card-title bg-dark">INSCRIPCIONES ABIERTAS AL CURSO VIRTUAL INNOVACIÓN ABIERTA NOA.</h5>
+							    <p class="card-text bg-dark">La capacitación cuenta con el aval de destacadas instituciones de Argentina.</p>
+							  </div>
+							</div> 
+						  
+						
+						   </div>
+       
+				        </div>
+				     </div>
+				   </div>
+				</div>		
+			</div>	
+		</section>
+	
+		<aside th:replace="/layout/publicity :: publicity"></aside>
+		
+	 </div>
+	</div>
+	<footer th:replace="/layout/footer :: footer"></footer>
+    
+    <script type="text/javascript" th:src=@{/webjars/jquery/3.5.1/jquery.min.js}></script>
+    <script type="text/javascript" th:src=@{/webjars/popper.js/1.16.1-lts/popper.min.js}></script>
+    <script type="text/javascript" th:src=@{/webjars/bootstrap/4.6.0-1/js/bootstrap.min.js}></script>
+</body>
+</html>

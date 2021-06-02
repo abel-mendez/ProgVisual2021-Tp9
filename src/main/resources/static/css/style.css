@@ -1,0 +1,18 @@
+body{
+	background-color: #d30011;
+}
+
+nav {
+	font-size: 20px;
+	font-style: italic;
+	font-variant: small-caps;
+}
+section{
+	background-color: #0b1a1c;
+}
+aside{
+	background-color: #0b1a1c;
+}
+footer{
+	background-color: #0b1a1c;
+}

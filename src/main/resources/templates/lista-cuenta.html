@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.Thymeleaf.org">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="user-scalable=no, width=device-width. initial-scale=1">
+<title>Lista de Cuentas</title>
+<link rel="stylesheet" th:href="@{/webjars/bootstrap/4.6.0-1/css/bootstrap.min.css}">
+<link rel="stylesheet" th:href="@{/css/style.css}">
+</head>
+<body>
+
+<header th:replace="/layout/header :: header"></header>
+ <div class="container">
+ 		<div class="row ">
+		<section class="col-md-12 col-sm-12 col-lg-10 ">
+			 <div class="container bg-danger text-white p-3 mt-3 text-center">
+			    <h3>LISTADO DE CUENTAS</h3>
+			 </div>
+			<div class="table-responsive">
+				<table class="table bg-white">
+			<thead class="thead-ligth">
+				<tr>
+					<th>ID</th>
+					<th>SALDO</th>
+					<th>FECHA DE CREACION</th>
+					<th>ESTADO</th>
+					<th>CLIENTE ID</th>
+					<th>ACCIONES</th>
+				</tr>
+			</thead>
+			<tbody class="tbody-light">
+				<tr th:each="cu: ${cuentas}" >
+					<td th:text="${cu.id}"></td>
+					<td th:text="${cu.saldo}"></td>
+					<td th:text="${cu.fechaCreacion}"></td>
+					<td th:text="${cu.estado}"></td>
+					<td th:text="${cu.cliente.id}"></td>
+					<td> 
+						<a th:href="@{/cuenta/editar/}+${cu.id}" class="btn btn-success">Editar</a>
+						<a th:href="@{/cuenta/borrar/}+${cu.id}" class="btn btn-danger">Borrar</a>
+					 </td>
+				</tr>
+			</tbody>
+			</table> 
+			</div>
+			<a href="/cuenta/nueva" class="btn btn-danger">Volver al formulario</a>
+		</section>
+		
+		<aside th:replace="/layout/publicity :: publicity"></aside>
+	    
+	
+	</div>
+ </div>
+<footer th:replace="/layout/footer :: footer"></footer>
+
+
+    <script type="text/javascript" th:src=@{/webjars/jquery/3.5.1/jquery.min.js}></script>
+    <script type="text/javascript" th:src=@{/webjars/popper.js/1.16.1-lts/popper.min.js}></script>
+    <script type="text/javascript" th:src=@{/webjars/bootstrap/4.6.0-1/js/bootstrap.min.js}></script>
+            
+</body>
+</html>

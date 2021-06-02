@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.Thymeleaf.org">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="user-scalable=no, width=device-width. initial-scale=1">
+<title>Resultado Compra</title>
+<link rel="stylesheet" th:href="@{/webjars/bootstrap/4.6.0-1/css/bootstrap.min.css}">
+<link rel="stylesheet" th:href="@{/css/style.css}">
+</head>
+<body>
+
+<header th:replace="/layout/header :: header"></header>
+<div class="container">
+	<div class="row ">
+		<section class="col-md-12 col-sm-12 col-lg-10 ">
+			<div style="height:30px"></div>
+			<div class="card text-center">
+				  <div class="card-header">
+				    RESULTADO
+				  </div>
+				  <div class="card-body">
+				    <h5 class="card-title">REALIZADO !!</h5>
+				    <p class="card-text">La Compra Fue Guardado con Exito !!!</p>
+				    <a href="/compra" class="btn btn-danger">Volver al formulario</a>
+				  </div>
+				  <div class="card-footer text-muted">
+				    Compra Guardada en la lista de compras.
+				  </div>
+			</div>
+			
+		</section>
+		
+		<aside th:replace="/layout/publicity :: publicity"></aside>
+
+	</div>
+</div>
+	    <footer th:replace="/layout/footer :: footer"></footer>
+
+    <script type="text/javascript" th:src=@{/webjars/jquery/3.5.1/jquery.min.js}></script>
+    <script type="text/javascript" th:src=@{/webjars/popper.js/1.16.1-lts/popper.min.js}></script>
+    <script type="text/javascript" th:src=@{/webjars/bootstrap/4.6.0-1/js/bootstrap.min.js}></script>
+</body>
+</html>

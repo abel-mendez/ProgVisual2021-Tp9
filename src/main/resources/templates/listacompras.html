@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.Thymeleaf.org">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="user-scalable=no, width=device-width. initial-scale=1">
+<title>LISTA DE COMPRAS</title>
+<link rel="stylesheet" th:href="@{/webjars/bootstrap/4.6.0-1/css/bootstrap.min.css}">
+<link rel="stylesheet" th:href="@{/css/style.css}">
+</head>
+<body>
+
+<header th:replace="/layout/header :: header"></header>
+ <div class="container">
+ 		<div class="row ">
+		<section class="col-md-12 col-sm-12 col-lg-10 ">
+			<div class="w-75 m-auto" >
+				<div class="container bg-danger text-white p-2 mt-3 text-center">
+					<h5>Filtrar Busqueda</h5>
+				</div>
+				<form th:action="@{/compra/filtrar}" class="text-white" method="get">
+				  <div class="mb-3">
+				    <label for="filtroproducto" class="form-label">Nombre del producto</label>
+				    <input type="text" class="form-control" id="filtroproducto" placeholder="Nombre del Producto" th:value="${filtroproducto}" name="filtroproducto"/>
+				  </div>
+				  <div class="mb-3">
+				    <label for="filtrototal" class="form-label">Monto</label>
+				    <input type="number" placeholder="Monto Superior a . . ." class="form-control" id="filtrototal" th:value="${filtrototal}" name="filtrototal"/>
+				  </div>
+				  <button type="submit" class="btn btn-success">Filtrar</button>
+				</form>
+			</div>
+			 <div class="container bg-danger text-white p-3 mt-3 text-center">
+			    <h3>LISTADO DE COMPRAS</h3>
+			 </div>
+			<div class="table-responsive" >
+				<table class="table bg-white">
+			<thead class="thead-ligth">
+				<tr>
+					<th>ID</th>
+					<th>PRODUCTO</th>
+					<th>CANTIDAD</th>
+					<th>TOTAL</th>
+					<th>ACCIONES</th>
+				</tr>
+			</thead>
+			<tbody class="tbody-light">
+				<tr th:each="c: ${compras}">
+					<td th:text="${c.id}"></td>
+					<td th:text="${c.producto.nombre}"></td>
+					<td th:text="${c.cantidad}"></td>
+					<td th:text="${c.getTotal()}"></td>
+					<td> 
+					<a th:href="@{/compra/editar/}+${c.id}" class="btn btn-success" >Modificar</a>
+						<a th:href="@{/compra/borrar/}+${c.id}" class="btn btn-danger " >Borrar</a>
+					 </td>
+				</tr>
+			</tbody>
+			</table> 
+			
+			</div>
+			<a href="/compra" class="btn btn-danger">Volver al formulario</a>
+		</section>
+		
+		<aside th:replace="/layout/publicity :: publicity"></aside>
+	    
+	
+	</div>
+ </div>
+<footer th:replace="/layout/footer :: footer"></footer>
+
+
+    <script type="text/javascript" th:src=@{/webjars/jquery/3.5.1/jquery.min.js}></script>
+    <script type="text/javascript" th:src=@{/webjars/popper.js/1.16.1-lts/popper.min.js}></script>
+    <script type="text/javascript" th:src=@{/webjars/bootstrap/4.6.0-1/js/bootstrap.min.js}></script>
+            
+</body>
+</html>
