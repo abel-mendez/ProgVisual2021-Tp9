@@ -7,5 +7,6 @@ import ar.edu.unju.fi.tp9.model.Cliente;
 public interface IClienteRepository extends CrudRepository<Cliente, Long>{
 	
 	public Cliente findById(int id);
+	public Cliente findByNombreApellido(String nombreApellido);
 
 }

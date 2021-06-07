@@ -335,6 +335,20 @@ public class Cliente {
 	  public void setCuenta(Cuenta cuenta) {
 		  this.cuenta = cuenta;
 	  }
+
+
+
+
+	public List<Beneficio> getBeneficios() {
+		return beneficios;
+	}
+
+
+
+
+	public void setBeneficios(List<Beneficio> beneficios) {
+		this.beneficios = beneficios;
+	}
 	 
 	
 }

@@ -20,7 +20,7 @@ import org.springframework.stereotype.Component;
 public class Beneficio {
 	
 	@Id
-	@GeneratedValue(strategy = GenerationType.AUTO)
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	@Column(name="ben_id")
 	private int id;
 	
@@ -75,7 +75,7 @@ public class Beneficio {
 	 * @param descripcion
 	 * @param clientes
 	 */
-	public Beneficio(int id,
+	public Beneficio(Integer id,
 			String descripcion,
 			List<Cliente> clientes) {
 		super();
