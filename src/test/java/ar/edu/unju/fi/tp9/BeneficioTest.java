@@ -2,9 +2,12 @@ package ar.edu.unju.fi.tp9;
 
 import static org.junit.jupiter.api.Assertions.*;
 
+import java.time.LocalDate;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
+import org.hibernate.type.LocalDateType;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
@@ -28,20 +31,31 @@ class BeneficioTest {
 	@Test
 	void testGuardarBeneficio() {
 		//List<Cliente> clientes= new ArrayList<Cliente>();
+		LocalDate fecha=LocalDate.of(2020, 1, 8);
+		Cliente client=new Cliente();
+		client.setNombreApellido("Abel Mendez");
+		client.setNroDocumento(40331244);
+		client.setCodigoAreaTelefono(388);
+		client.setCuenta(null);
+		client.setEmail("abel.m.villagra@gmail.com");
+		client.setFechaNacimiento(fecha);
+		client.setFechaUltimaCompra(fecha);
+		client.setNroTelefono(4087971);
+		client.setPassword("12345678");
+		client.setTipoDocumento("dni");
 		Beneficio beneficio= new Beneficio();
 		beneficio.setDescripcion("10% de descuento");
-		Beneficio bene= new Beneficio();
-		List<Beneficio> beneficios= new ArrayList<Beneficio>();
-		Cliente cli1=clienteService.buscarClientePorNombre("Vilte Diego");
-		System.out.println("CLIENTE 1 => "+cli1);
 		beneficioService.saveBeneficio(beneficio);
+		Beneficio bene= new Beneficio();
 		bene=beneficioService.getBeneficiosById(1);
+		List<Beneficio> beneficios= new ArrayList<Beneficio>();
+		
 		beneficios.add(bene);
-		cli1.setBeneficios(beneficios);
-		clienteService.guardarCliente(cli1);
+		client.setBeneficios(beneficios);
+		clienteService.guardarCliente(client);
 	
 		
-		assertEquals("Beneficio tramiteacion de compra", beneficio.getDescripcion());
+		assertEquals("10% de descuento", beneficio.getDescripcion());
 	}
 
 }

@@ -92,6 +92,7 @@ public class Cliente {
 	@JoinTable(name="clientes_beneficios",
 				joinColumns = @JoinColumn(name="cli_id"),
 				inverseJoinColumns = @JoinColumn(name="ben_id"))
+	@Column(name="beneficios")
 	private List<Beneficio> beneficios=new ArrayList<Beneficio>();
 	
 	

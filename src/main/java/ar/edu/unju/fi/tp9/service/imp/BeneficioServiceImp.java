@@ -29,7 +29,7 @@ public class BeneficioServiceImp implements IBeneficioService {
 	@Override
 	public Beneficio getBeneficiosById(int id) {
 		// TODO Auto-generated method stub
-		Beneficio beneficio=beneficioRepo.findById(id);
+		Beneficio beneficio=beneficioRepo.findById(id).get();
 		return beneficio;
 	}
 
