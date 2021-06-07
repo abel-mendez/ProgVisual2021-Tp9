@@ -78,8 +78,16 @@ public class ClienteServiceImp implements IClienteService{
 	}
 
 
+
 	@Override
-	public Cliente getClientePorId(int id) {
+	public Cliente getClientePorId(Long id) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+
+	@Override
+	public Cliente buscarClientePorNombre(String nombreApellido) {
 		// TODO Auto-generated method stub
 		return null;
 	}

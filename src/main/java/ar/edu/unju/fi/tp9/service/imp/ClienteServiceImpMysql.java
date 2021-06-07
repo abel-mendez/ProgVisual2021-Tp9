@@ -1,6 +1,7 @@
 package ar.edu.unju.fi.tp9.service.imp;
 
 import java.time.LocalDate;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
@@ -78,8 +79,17 @@ public class ClienteServiceImpMysql implements IClienteService {
 	 * devuelve un empleado por id
 	 */
 	@Override
-	public Cliente getClientePorId(int id) {
-		Cliente cliente=clienteRepo.findById(id);
+	public Cliente getClientePorId(Long id) {
+		Cliente cliente=clienteRepo.findById(id).get();
+		return cliente;
+	}
+
+	@Override
+	public Cliente buscarClientePorNombre(String nombreApellido) {
+		// TODO Auto-generated method stub
+		//List<Cliente> clientes= new ArrayList<Cliente>();
+		Cliente cliente=new Cliente();
+		cliente=clienteRepo.findByNombreApellido(nombreApellido);
 		return cliente;
 	}
 
