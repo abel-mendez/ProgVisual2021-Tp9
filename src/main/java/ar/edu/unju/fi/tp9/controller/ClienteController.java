@@ -1,5 +1,6 @@
 package ar.edu.unju.fi.tp9.controller;
 
+import java.util.List;
 import java.util.Optional;
 
 import javax.validation.Valid;
@@ -64,7 +65,6 @@ public class ClienteController {
 			clienteService.guardarCliente(uncliente);
 			//en la vista clientes  se obtiene todos los clientes
 			modelView.addObject("clientes",clienteService.getAllClientes());
-			
 			return modelView;
 		}
 	}
@@ -88,11 +88,12 @@ public class ClienteController {
 	@GetMapping("/cliente/editar/{id}")
 	public ModelAndView getClienteModPage(@PathVariable(value = "id")Long id) {
 		ModelAndView modelView=new ModelAndView("nuevocliente");
-		Optional<Cliente> cliente=clienteService.getClienteById(id);
-		//Cliente cliente =clienteService.getClientePorId(id);
+		//Optional<Cliente> cliente=clienteService.getClienteById(id);
+		Cliente cliente =clienteService.getClientePorId(id);
 		modelView.addObject("cliente", cliente);
-		//modelView.addObject("allbeneficios",beneficioService.getAllbeneficios());
-		//modelView.addObject("benefcliente", null );
+		List<Beneficio> allBeneficios = beneficioService.getAllbeneficios();
+		modelView.addObject("allbeneficios",allBeneficios);
+		modelView.addObject("benefcliente", cliente.getBeneficios());
 		return modelView;
 	}
 	
@@ -107,7 +108,7 @@ public class ClienteController {
 	@GetMapping("/cliente/{idcliente}/beneficio/agregar/{idbeneficio}")
 	public String agregarBeneficioCliente(@PathVariable(name="idcliente") Long idcliente,
 			@PathVariable(name="idbeneficio") int idbeneficio,Model model) {
-		Cliente cliente= clienteService.getClienteById(idcliente).get();
+		Cliente cliente= clienteService.getClientePorId(idcliente);
 		Beneficio beneficio= beneficioService.getBeneficiosById(idbeneficio);
 		cliente.getBeneficios().add(beneficio);
 		try {
@@ -115,10 +116,25 @@ public class ClienteController {
 		}catch(Exception e) {
 			System.out.println(e.getMessage());
 		}
-		cliente= clienteService.getClienteById(idcliente).get();
+		cliente= clienteService.getClientePorId(idcliente);
 		model.addAttribute("cliente",cliente);
 		model.addAttribute("allbeneficios",beneficioService.getAllbeneficios());
 		model.addAttribute("benefcliente",cliente.getBeneficios());
+		return "nuevocliente";
+	}
+	
+	@GetMapping("/cliente/{idcliente}/beneficio/sacar/{idbeneficio}")
+	public String eliminarBeneficioCliente(@PathVariable(name="idcliente") Long idcliente,
+			@PathVariable(name="idbeneficio") int idbeneficio,Model model) {
+		Cliente cliente= clienteService.getClientePorId(idcliente);
+		Beneficio beneficio= beneficioService.getBeneficiosById(idbeneficio);
+		int pos = cliente.getBeneficios().indexOf(beneficio);
+		cliente.getBeneficios().remove(pos);
+		cliente= clienteService.getClientePorId(idcliente);
+		model.addAttribute("cliente",cliente);
+		model.addAttribute("allbeneficios",beneficioService.getAllbeneficios());
+		model.addAttribute("benefcliente",cliente.getBeneficios());
+		
 		return "nuevocliente";
 	}
 	
