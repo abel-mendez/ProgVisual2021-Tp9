@@ -103,20 +103,20 @@
 							
 					<div class="card-header bg-danger text-white text-center">BENEFICIOS</div>
 					<div class="row mt-2">	
-					 <div class="table-responsive col-md-7 col-sm-7 col-lg-7">
+					 <div class="table-responsive col-md-6 col-sm-6 col-lg-6">
 						<h5> Beneficios del cliente</h5>
 						<table class="table bg-white" border="1" style="border-collapse: collapse; ">
 							<thead class="thead-light">
 								<tr>
 									<th>ID</th>
-									<th>APELLIDO Y NOMBRE</th>
+									<th>DESCRIPCION</th>
 									<th>ACCIONES</th>
 								</tr>
 							</thead>
 							<tbody class="tbody-light">
 								<tr th:each="e: ${benefcliente}">
 									<td th:text="${e.id}"></td>
-									<td th:text="${#strings.toUpperCase(e.nombreApellido)}"></td>
+									<td th:text="${e.descripcion}"></td>
 									<td> 
 										<a th:href="@{/cliente/borrar/}+${e.id}" class="btn btn-danger">X</a>
 									 </td>
@@ -124,7 +124,7 @@
 							</tbody>
 						</table>
 					  </div>
-					 <div class="table-responsive col-md-5 col-sm-5 col-lg-5">
+					 <div class="table-responsive col-md-6 col-sm-6 col-lg-6">
 						<h5> Beneficios </h5>
 						<table class="table bg-white" border="1" style="border-collapse: collapse;">
 							<thead class="thead-light">
@@ -137,7 +137,7 @@
 							<tbody class="tbody-light">
 								<tr th:each="e: ${allbeneficios}">
 									<td> 
-										<a th:href="@{/cliente/editar/}+${e.id}" class="btn btn-success"> <= </a>
+										<a th:href="@{/cliente/{idcliente}/beneficio/agregar/{idbeneficio} (idcliente=*{id},idbeneficio=${e.id})}" class="btn btn-success"> <= </a>
 									</td>
 									<td th:text="${e.id}"></td>
 									<td th:text="${e.descripcion}"></td>

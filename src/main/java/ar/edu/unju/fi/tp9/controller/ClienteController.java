@@ -91,8 +91,8 @@ public class ClienteController {
 		Optional<Cliente> cliente=clienteService.getClienteById(id);
 		//Cliente cliente =clienteService.getClientePorId(id);
 		modelView.addObject("cliente", cliente);
-		modelView.addObject("allbeneficios",beneficioService.getAllbeneficios());
-		modelView.addObject("benefcliente", null );
+		//modelView.addObject("allbeneficios",beneficioService.getAllbeneficios());
+		//modelView.addObject("benefcliente", null );
 		return modelView;
 	}
 	
@@ -104,7 +104,7 @@ public class ClienteController {
 		return modelView;
 	}
 	
-	@GetMapping("/cliente/{idcliente}/beneficio/agregar/{idbeneficio")
+	@GetMapping("/cliente/{idcliente}/beneficio/agregar/{idbeneficio}")
 	public String agregarBeneficioCliente(@PathVariable(name="idcliente") Long idcliente,
 			@PathVariable(name="idbeneficio") int idbeneficio,Model model) {
 		Cliente cliente= clienteService.getClienteById(idcliente).get();
