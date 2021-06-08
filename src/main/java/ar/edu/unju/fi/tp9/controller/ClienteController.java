@@ -17,7 +17,9 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.servlet.ModelAndView;
 
+import ar.edu.unju.fi.tp9.model.Beneficio;
 import ar.edu.unju.fi.tp9.model.Cliente;
+import ar.edu.unju.fi.tp9.service.IBeneficioService;
 import ar.edu.unju.fi.tp9.service.IClienteService;
 
 @Controller
@@ -29,6 +31,10 @@ public class ClienteController {
 	@Qualifier("clienteServiceMysql")
 	private IClienteService clienteService;
 	
+	@Autowired
+	@Qualifier("BeneficioServiceMysql")
+	private IBeneficioService beneficioService;
+	
 	private static final Log LOGGER = LogFactory.getLog(ClienteController.class);
 	
 	@GetMapping("/cliente/nuevo")
@@ -37,7 +43,8 @@ public class ClienteController {
 		LOGGER.info("METHOD : nuevoCliente()");
 		LOGGER.info("RESULT : VISUALIZA LA PAGINA nuevocliente.html");
 		model.addAttribute(clienteService.getCliente());
-		
+		model.addAttribute("allbeneficios",beneficioService.getAllbeneficios());
+		model.addAttribute("benefcliente", null);
 		return "nuevocliente";
 	}
 	
@@ -84,7 +91,8 @@ public class ClienteController {
 		Optional<Cliente> cliente=clienteService.getClienteById(id);
 		//Cliente cliente =clienteService.getClientePorId(id);
 		modelView.addObject("cliente", cliente);
-		
+		modelView.addObject("allbeneficios",beneficioService.getAllbeneficios());
+		modelView.addObject("benefcliente", null );
 		return modelView;
 	}
 	
@@ -94,6 +102,24 @@ public class ClienteController {
 		clienteService.deletClienteById(id);
 		
 		return modelView;
+	}
+	
+	@GetMapping("/cliente/{idcliente}/beneficio/agregar/{idbeneficio")
+	public String agregarBeneficioCliente(@PathVariable(name="idcliente") Long idcliente,
+			@PathVariable(name="idbeneficio") int idbeneficio,Model model) {
+		Cliente cliente= clienteService.getClienteById(idcliente).get();
+		Beneficio beneficio= beneficioService.getBeneficiosById(idbeneficio);
+		cliente.getBeneficios().add(beneficio);
+		try {
+			clienteService.guardarCliente(cliente);
+		}catch(Exception e) {
+			System.out.println(e.getMessage());
+		}
+		cliente= clienteService.getClienteById(idcliente).get();
+		model.addAttribute("cliente",cliente);
+		model.addAttribute("allbeneficios",beneficioService.getAllbeneficios());
+		model.addAttribute("benefcliente",cliente.getBeneficios());
+		return "nuevocliente";
 	}
 	
 }
