@@ -93,4 +93,13 @@ public class ClienteServiceImp implements IClienteService{
 	}
 
 
+	@Override
+	public void BeneficioCliente(Long id,int idb) {
+		// TODO Auto-generated method stub
+		
+	}
+
+
+
+
 }

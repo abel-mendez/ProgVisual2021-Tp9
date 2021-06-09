@@ -33,4 +33,11 @@ public class BeneficioServiceImp implements IBeneficioService {
 		return beneficio;
 	}
 
+	@Override
+	public List<Beneficio> getAllbeneficios() {
+		// TODO Auto-generated method stub
+		List<Beneficio> beneficios = (List<Beneficio>) beneficioRepo.findAll();
+		return beneficios;
+	}
+
 }

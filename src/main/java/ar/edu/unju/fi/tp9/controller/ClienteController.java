@@ -1,5 +1,7 @@
 package ar.edu.unju.fi.tp9.controller;
 
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Optional;
 
 import javax.validation.Valid;
@@ -17,7 +19,9 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.servlet.ModelAndView;
 
+import ar.edu.unju.fi.tp9.model.Beneficio;
 import ar.edu.unju.fi.tp9.model.Cliente;
+import ar.edu.unju.fi.tp9.service.IBeneficioService;
 import ar.edu.unju.fi.tp9.service.IClienteService;
 
 @Controller
@@ -29,6 +33,10 @@ public class ClienteController {
 	@Qualifier("clienteServiceMysql")
 	private IClienteService clienteService;
 	
+	@Autowired
+	@Qualifier("BeneficioServiceMysql")
+	private IBeneficioService beneficioService;
+	
 	private static final Log LOGGER = LogFactory.getLog(ClienteController.class);
 	
 	@GetMapping("/cliente/nuevo")
@@ -37,7 +45,9 @@ public class ClienteController {
 		LOGGER.info("METHOD : nuevoCliente()");
 		LOGGER.info("RESULT : VISUALIZA LA PAGINA nuevocliente.html");
 		model.addAttribute(clienteService.getCliente());
-		
+		model.addAttribute("allbeneficios",beneficioService.getAllbeneficios());
+		model.addAttribute("benefcliente", null);
+		model.addAttribute("beneficios",beneficioService.getAllbeneficios());
 		return "nuevocliente";
 	}
 	
@@ -50,14 +60,20 @@ public class ClienteController {
 		if(result.hasErrors()) {
 			ModelAndView model=new ModelAndView("nuevocliente");
 			model.addObject("cliente", uncliente);
+			model.addObject("beneficios",beneficioService.getAllbeneficios());
 			return model;
 		}else {
 			//vista
+			List<Beneficio> benf=new ArrayList<Beneficio>();
+		    for(Beneficio b: uncliente.getBeneficios()) {
+		    	
+		    	benf.add(beneficioService.getBeneficiosById(b.getId()));
+		    }
+		    uncliente.setBeneficios(benf);
 			ModelAndView modelView = new ModelAndView("clientes");
 			clienteService.guardarCliente(uncliente);
 			//en la vista clientes  se obtiene todos los clientes
 			modelView.addObject("clientes",clienteService.getAllClientes());
-			
 			return modelView;
 		}
 	}
@@ -81,10 +97,13 @@ public class ClienteController {
 	@GetMapping("/cliente/editar/{id}")
 	public ModelAndView getClienteModPage(@PathVariable(value = "id")Long id) {
 		ModelAndView modelView=new ModelAndView("nuevocliente");
-		Optional<Cliente> cliente=clienteService.getClienteById(id);
-		//Cliente cliente =clienteService.getClientePorId(id);
+		//Optional<Cliente> cliente=clienteService.getClienteById(id);
+		Cliente cliente =clienteService.getClientePorId(id);
 		modelView.addObject("cliente", cliente);
-		
+		List<Beneficio> allBeneficios = beneficioService.getAllbeneficios();
+		modelView.addObject("allbeneficios",allBeneficios);
+		modelView.addObject("benefcliente", cliente.getBeneficios());
+		modelView.addObject("beneficios",beneficioService.getAllbeneficios());
 		return modelView;
 	}
 	
@@ -92,8 +111,38 @@ public class ClienteController {
 	public ModelAndView getClienteDeletPage(@PathVariable(value = "id")Long id) {
 		ModelAndView modelView = new ModelAndView("redirect:/cliente/listado");
 		clienteService.deletClienteById(id);
-		
 		return modelView;
+	}
+	
+	@GetMapping("/cliente/{idcliente}/beneficio/agregar/{idbeneficio}")
+	public String agregarBeneficioCliente(@PathVariable(name="idcliente") Long idcliente,
+			@PathVariable(name="idbeneficio") int idbeneficio,Model model) {
+		Cliente cliente= clienteService.getClientePorId(idcliente);
+		Beneficio beneficio= beneficioService.getBeneficiosById(idbeneficio);
+		cliente.getBeneficios().add(beneficio);
+		try {
+			clienteService.guardarCliente(cliente);
+		}catch(Exception e) {
+			System.out.println(e.getMessage());
+		}
+		cliente= clienteService.getClientePorId(idcliente);
+		model.addAttribute("cliente",cliente);
+		model.addAttribute("allbeneficios",beneficioService.getAllbeneficios());
+		model.addAttribute("benefcliente",cliente.getBeneficios());
+		return "nuevocliente";
+	}
+	
+	@GetMapping("/cliente/{idcliente}/beneficio/sacar/{idbeneficio}")
+	public String eliminarBeneficioCliente(@PathVariable(name="idcliente") Long idcliente,
+			@PathVariable(name="idbeneficio") int idbeneficio,Model model) {
+		Cliente cliente= clienteService.getClientePorId(idcliente);
+		Beneficio beneficio= beneficioService.getBeneficiosById(idbeneficio);
+		clienteService.BeneficioCliente(idcliente, idbeneficio);
+		cliente= clienteService.getClientePorId(idcliente);
+		model.addAttribute("cliente",cliente);
+		model.addAttribute("allbeneficios",beneficioService.getAllbeneficios());
+		model.addAttribute("benefcliente",cliente.getBeneficios());
+		return "nuevocliente";
 	}
 	
 }

@@ -14,6 +14,8 @@ import ar.edu.unju.fi.tp9.service.IClienteService;
 @Service("clienteServiceMysql")
 public class ClienteServiceImpMysql implements IClienteService {
 	
+	List<Cliente> clientesEncontrados = new ArrayList<Cliente>();
+	
 	@Autowired
 	private IClienteRepository clienteRepo;
 	@Autowired
@@ -92,5 +94,19 @@ public class ClienteServiceImpMysql implements IClienteService {
 		cliente=clienteRepo.findByNombreApellido(nombreApellido);
 		return cliente;
 	}
+
+	@Override
+	public void BeneficioCliente(Long id,int idb) {
+		// TODO Auto-generated method stub
+		cliente = this.getClientePorId(id);
+		for (int i=0; i< cliente.getBeneficios().size();i++) {
+			if (i == idb) {
+				cliente.getBeneficios().remove(idb);
+			}
+		}
+		
+	}
+
+
 
 }
