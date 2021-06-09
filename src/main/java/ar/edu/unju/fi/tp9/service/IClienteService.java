@@ -15,4 +15,6 @@ public interface IClienteService {
 	public void deletClienteById(Long id);
 	public Cliente getClientePorId(Long id);
 	public Cliente buscarClientePorNombre(String nombreApellido);
+	
+	public void BeneficioCliente(Long id,int idb);
 }

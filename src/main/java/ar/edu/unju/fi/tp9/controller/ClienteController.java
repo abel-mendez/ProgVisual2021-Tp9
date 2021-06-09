@@ -1,5 +1,6 @@
 package ar.edu.unju.fi.tp9.controller;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
@@ -46,6 +47,7 @@ public class ClienteController {
 		model.addAttribute(clienteService.getCliente());
 		model.addAttribute("allbeneficios",beneficioService.getAllbeneficios());
 		model.addAttribute("benefcliente", null);
+		model.addAttribute("beneficios",beneficioService.getAllbeneficios());
 		return "nuevocliente";
 	}
 	
@@ -58,9 +60,16 @@ public class ClienteController {
 		if(result.hasErrors()) {
 			ModelAndView model=new ModelAndView("nuevocliente");
 			model.addObject("cliente", uncliente);
+			model.addObject("beneficios",beneficioService.getAllbeneficios());
 			return model;
 		}else {
 			//vista
+			List<Beneficio> benf=new ArrayList<Beneficio>();
+		    for(Beneficio b: uncliente.getBeneficios()) {
+		    	
+		    	benf.add(beneficioService.getBeneficiosById(b.getId()));
+		    }
+		    uncliente.setBeneficios(benf);
 			ModelAndView modelView = new ModelAndView("clientes");
 			clienteService.guardarCliente(uncliente);
 			//en la vista clientes  se obtiene todos los clientes
@@ -94,6 +103,7 @@ public class ClienteController {
 		List<Beneficio> allBeneficios = beneficioService.getAllbeneficios();
 		modelView.addObject("allbeneficios",allBeneficios);
 		modelView.addObject("benefcliente", cliente.getBeneficios());
+		modelView.addObject("beneficios",beneficioService.getAllbeneficios());
 		return modelView;
 	}
 	
@@ -101,7 +111,6 @@ public class ClienteController {
 	public ModelAndView getClienteDeletPage(@PathVariable(value = "id")Long id) {
 		ModelAndView modelView = new ModelAndView("redirect:/cliente/listado");
 		clienteService.deletClienteById(id);
-		
 		return modelView;
 	}
 	
@@ -128,13 +137,11 @@ public class ClienteController {
 			@PathVariable(name="idbeneficio") int idbeneficio,Model model) {
 		Cliente cliente= clienteService.getClientePorId(idcliente);
 		Beneficio beneficio= beneficioService.getBeneficiosById(idbeneficio);
-		int pos = cliente.getBeneficios().indexOf(beneficio);
-		cliente.getBeneficios().remove(pos);
+		clienteService.BeneficioCliente(idcliente, idbeneficio);
 		cliente= clienteService.getClientePorId(idcliente);
 		model.addAttribute("cliente",cliente);
 		model.addAttribute("allbeneficios",beneficioService.getAllbeneficios());
 		model.addAttribute("benefcliente",cliente.getBeneficios());
-		
 		return "nuevocliente";
 	}
 	

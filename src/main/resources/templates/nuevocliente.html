@@ -102,6 +102,12 @@
 								</div>
 							
 					<div class="card-header bg-danger text-white text-center">BENEFICIOS</div>
+					
+                          <div th:each="b: ${beneficios}" class=" form-check form-check-inline">
+							  <input class="form-check-input" th:field="*{beneficios}" th:value="${b.id}" type="checkbox" id="inlineCheckbox1" value="option1">
+							  <label class="form-check-label" for="inlineCheckbox1" th:text="${b.descripcion}"></label>
+						  </div>
+					
 					<div  th:if="${cliente.id != null}" class="row mt-2">	
 					 <div class="table-responsive col-md-6 col-sm-6 col-lg-6">
 						<h5> Beneficios del cliente</h5>
@@ -110,16 +116,16 @@
 								<tr>
 									<th>ID</th>
 									<th>DESCRIPCION</th>
-									<th>ACCIONES</th>
+									<!--   <th>ACCIONES</th>-->
 								</tr>
 							</thead>
 							<tbody class="tbody-light">
 								<tr th:each="e: ${benefcliente}">
 									<td th:text="${e.id}"></td>
 									<td th:text="${e.descripcion}"></td>
-									<td> 
+									<!--<td> 
 										<a th:href="@{/cliente/{idcliente}/beneficio/sacar/{idbeneficio} (idcliente=*{id},idbeneficio=${e.id})}" class="btn btn-danger">Eliminar</a>
-									 </td>
+									 </td>-->
 								</tr>
 							</tbody>
 						</table>
@@ -129,16 +135,16 @@
 						<table class="table bg-white" border="1" style="border-collapse: collapse;">
 							<thead class="thead-light">
 								<tr>
-									<th>ACCIONES</th>
+									<!--   <th>ACCIONES</th>-->
 									<th>ID</th>
 									<th>DESCRIPCION</th>
 								</tr>
 							</thead>
 							<tbody class="tbody-light">
 								<tr th:each="e: ${allbeneficios}">
-									<td> 
+									<!-- <td> 
 										<a th:href="@{/cliente/{idcliente}/beneficio/agregar/{idbeneficio} (idcliente=*{id},idbeneficio=${e.id})}" class="btn btn-success"> Agregar </a>
-									</td>
+									</td>-->
 									<td th:text="${e.id}"></td>
 									<td th:text="${e.descripcion}"></td>
 								</tr>
